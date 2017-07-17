@@ -33,8 +33,8 @@ proc dice_roller_results {} {
 ns_register_proc GET /fake-results.html dice_roller_tcl_results
 
 proc dice_roller_tcl_results {} {
-    set result [dice_roller_tcl 6 7 4 low]
-    ns_return 200 text/html result
+    set result [dice_roller_tcl 6 4 7 low]
+    ns_return 200 text/html $result
 }
 
 
@@ -110,7 +110,7 @@ proc dice_roller_tcl {faces dice repeat {discard none}} {
 	    }
 	}
 	lappend results [format "%-6d %-20s %-[expr $dice*2]s %-12s %d" $i "$dice x $faces-sides" \
-			     $rolls "$discard[expr {$discard == "none" ? "" : " ($removed)"}]"  [pb::listsum $rolls]]
+			     $rolls "$discard[expr {$discard == "none" ? "" : " ($removed)"}]"  [listsum $rolls]]
 	
     }
     return $results
