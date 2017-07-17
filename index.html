@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final Config</title>
+  </head>
+  <body>
+
+<form class="form-horizontal" method="POST" action="results.html">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Dice Roller</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="number">Dice</label>  
+  <div class="col-md-4">
+  <input id="number" name="number" type="text" placeholder="#" class="form-control input-md">
+  <span class="help-block">Enter a number of dice to roll</span>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="faces">Faces</label>  
+  <div class="col-md-4">
+  <input id="faces" name="faces" type="text" placeholder="#" class="form-control input-md">
+  <span class="help-block">Enter number of faces per die</span>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="rolls">Rolls</label>  
+  <div class="col-md-4">
+  <input id="rolls" name="rolls" type="text" placeholder="#" class="form-control input-md">
+  <span class="help-block">Enter how many rolls you would like to make</span>  
+  </div>
+</div>
+
+<!-- Multiple Radios (inline) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="discard">Discard</label>
+  <div class="col-md-4"> 
+    <label class="radio-inline" for="discard-0">
+      <input type="radio" name="discard" id="discard-0" value="none" checked="checked">
+      None
+    </label> 
+    <label class="radio-inline" for="discard-1">
+      <input type="radio" name="discard" id="discard-1" value="low">
+      Low
+    </label> 
+    <label class="radio-inline" for="discard-2">
+      <input type="radio" name="discard" id="discard-2" value="high">
+      High
+    </label>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="submit"></label>
+  <div class="col-md-4">
+    <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+    
+  </body>
+</html>
