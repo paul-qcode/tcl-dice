@@ -30,6 +30,14 @@ proc dice_roller_results {} {
     ns_return 200 text/html "$html_head $html $html_foot"
 }
 
+ns_register_proc GET /fake-results.html dice_roller_tcl_results
+
+proc dice_roller_tcl_results {} {
+    set result [dice_roller_tcl 6 7 4 low]
+    ns_return 200 text/html result
+}
+
+
 
 proc dice_roller {faces dice repeat {discard none}} {
     #| proc to roll {dice} number of dice with {faces} faces a {repeat} number of times.
@@ -75,7 +83,39 @@ proc dice_roller {faces dice repeat {discard none}} {
     
     return $results
 }
- 
+
+proc dice_roller_tcl {faces dice repeat {discard none}} {
+    #| original proc of diceroller but configured to output formatted string instead of html
+    set results {}
+    lappend results [format "%-6s %-20s %-[expr $dice*2]s %-12s %s" Roll Dice Results Removed Total]
+    
+    for {set i 1} {$i <= $repeat} {incr i} {
+	set rolls {}
+	for {set j 1} {$j <= $dice} {incr j} {
+	    lappend rolls [expr {int(rand()*$faces)+1}]
+	}
+	set rolls [lsort -integer $rolls]
+	switch $discard {
+	    "low" {
+		set removed [lindex $rolls 0]
+		set rolls [lreplace $rolls 0 0]
+	    }
+	    "high" {
+		set listlen [expr [llength $rolls] - 1]
+		set removed [lindex $rolls $listlen]		
+	        set rolls [lreplace $rolls $listlen $listlen]
+	    }
+	    default {
+		set removed "none"
+	    }
+	}
+	lappend results [format "%-6d %-20s %-[expr $dice*2]s %-12s %d" $i "$dice x $faces-sides" \
+			     $rolls "$discard[expr {$discard == "none" ? "" : " ($removed)"}]"  [pb::listsum $rolls]]
+	
+    }
+    return $results
+}
+
 proc listsum {l} {
     #| Use mathop to sum all items in a list
     ::tcl::mathop::+ {*}$l
